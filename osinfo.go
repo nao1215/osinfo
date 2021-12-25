@@ -38,6 +38,7 @@ type macProductInfo struct {
 type OsInfo struct {
 	Os            string
 	Distro        string
+	Model         string
 	KernelName    string
 	KernelVer     string
 	KernelMachine string
@@ -46,14 +47,16 @@ type OsInfo struct {
 
 func Get() OsInfo {
 	utsname := uts()
+	os := operatingSystem(utsname.sys)
 
 	osinfo := OsInfo{
-		Os: operatingSystem(utsname.sys),
+		Os: os,
 		Distro: distribution(
-			operatingSystem(utsname.sys),
+			os,
 			utsname.sys,
 			utsname.release,
 			getMacProductInfo()),
+		Model:         model(os),
 		KernelName:    utsname.sys,
 		KernelVer:     utsname.release,
 		KernelMachine: utsname.machine,
