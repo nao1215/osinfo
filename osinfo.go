@@ -48,8 +48,12 @@ func Get() OsInfo {
 	utsname := uts()
 
 	osinfo := OsInfo{
-		Os:            operatingSystem(utsname.sys),
-		Distro:        distribution(operatingSystem(utsname.sys), utsname.sys, utsname.release),
+		Os: operatingSystem(utsname.sys),
+		Distro: distribution(
+			operatingSystem(utsname.sys),
+			utsname.sys,
+			utsname.release,
+			getMacProductInfo()),
 		KernelName:    utsname.sys,
 		KernelVer:     utsname.release,
 		KernelMachine: utsname.machine,

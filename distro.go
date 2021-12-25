@@ -24,12 +24,16 @@ import (
 	"strings"
 )
 
-func distribution(os string, kernelName string, kernelVer string) string {
+func distribution(os string, kernelName string, kernelVer string, mac macProductInfo) string {
 	distro := "Unknown"
 
 	switch os {
 	case "Linux", "BSD", "MINIX":
 		distro = getDistroNameForBsdLinuxMinix(kernelName, kernelVer)
+	case "Mac OS X", "macOS":
+		distro = getDistroNameForMac(mac)
+	case "iPhone OS":
+		distro = getiPhoneDistroName(mac)
 	}
 
 	return distro
@@ -86,6 +90,38 @@ func getDistroNameForBsdLinuxMinix(kernelName string, kernelVer string) string {
 		distro = ubuntuFlavor(distro)
 	}
 	return distro
+}
+
+func getDistroNameForMac(mac macProductInfo) string {
+	distro := "macOS"
+	codes := map[string]string{
+		"10.4":  "Mac OS X Tiger",
+		"10.5":  "Mac OS X Leopard",
+		"10.6":  "Mac OS X Snow Leopard",
+		"10.7":  "Mac OS X Lion",
+		"10.8":  "OS X Mountain Lion",
+		"10.9":  "OS X Mavericks",
+		"10.10": "OS X Yosemite",
+		"10.11": "OS X El Capitan",
+		"10.12": "macOS Sierra",
+		"10.13": "macOS High Sierra",
+		"10.14": "macOS Mojave",
+		"10.15": "macOS Catalina",
+		"10.16": "macOS Big Sur",
+		"11":    "macOS Big Sur",
+		"12":    "macOS Monterey"}
+
+	for k, v := range codes {
+		if strings.Contains(mac.version, k) {
+			distro = v
+			break
+		}
+	}
+	return distro + " " + mac.version + " " + mac.buildVer
+}
+
+func getiPhoneDistroName(mac macProductInfo) string {
+	return "iOS " + mac.version
 }
 
 func formatDistroStr(distro string) string {

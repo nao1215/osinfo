@@ -1,4 +1,4 @@
-# osinfo - Get HW / SW information for Linux/Mac/Unix.
+# osinfo - Get HW / SW information
 TBD
 # How to use
 TBD
