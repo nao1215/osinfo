@@ -34,6 +34,18 @@ func distribution(os string, kernelName string, kernelVer string, mac macProduct
 		distro = getDistroNameForMac(mac)
 	case "iPhone OS":
 		distro = getiPhoneDistroName(mac)
+	case "Windows":
+		distro = getWindowsDistroName()
+	case "Solaris":
+		distro = getSolarisDistroName()
+	case "Haiku":
+		distro = getHaikuDistroName()
+	case "AIX":
+		distro = getAIXDistroName()
+	case "IRIX":
+		distro = getIRIXDistroName(kernelVer)
+	case "FreeMiNT":
+		distro = getFreeMintDistroName()
 	}
 
 	return distro
@@ -122,6 +134,46 @@ func getDistroNameForMac(mac macProductInfo) string {
 
 func getiPhoneDistroName(mac macProductInfo) string {
 	return "iOS " + mac.version
+}
+
+func getWindowsDistroName() string {
+	out, err := exec.Command("wmic", "os", "get", "Caption").Output()
+	if err != nil {
+		return "Windows"
+	}
+	distro := strings.ReplaceAll(string(out), "Caption", "")
+	distro = strings.ReplaceAll(distro, "Microsoft ", "")
+	return distro
+}
+
+func getSolarisDistroName() string {
+	contents := readFile("/etc/release")
+	lines := strings.Split(contents, "\n")
+	elem := strings.Split(lines[0], " ")
+
+	distro := elem[0] + " " + elem[1] + " " + elem[2]
+	rep := regexp.MustCompile(`\(*`)
+	return rep.ReplaceAllString(distro, "")
+}
+
+func getHaikuDistroName() string {
+	return "Haiku"
+}
+
+func getAIXDistroName() string {
+	out, err := exec.Command("oslevel").Output()
+	if err != nil {
+		return "AIX"
+	}
+	return "AIX " + string(out)
+}
+
+func getIRIXDistroName(kernelVer string) string {
+	return "IRIX " + kernelVer
+}
+
+func getFreeMintDistroName() string {
+	return "FreeMiNT"
 }
 
 func formatDistroStr(distro string) string {
