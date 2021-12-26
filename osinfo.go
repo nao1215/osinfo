@@ -16,10 +16,6 @@
 // limitations under the License.
 package osinfo
 
-import (
-	"fmt"
-)
-
 type utsname struct {
 	sys     string
 	node    string
@@ -36,13 +32,13 @@ type macProductInfo struct {
 }
 
 type OsInfo struct {
-	Os            string
-	Distro        string
-	Model         string
-	KernelName    string
-	KernelVer     string
-	KernelMachine string
-	mac           macProductInfo
+	Os         string
+	Distro     string
+	Model      string
+	KernelName string
+	KernelVer  string
+	KernelArch string
+	Mac        macProductInfo
 }
 
 func Get() OsInfo {
@@ -56,26 +52,13 @@ func Get() OsInfo {
 			utsname.sys,
 			utsname.release,
 			getMacProductInfo()),
-		Model:         model(os),
-		KernelName:    utsname.sys,
-		KernelVer:     utsname.release,
-		KernelMachine: utsname.machine,
-		mac:           getMacProductInfo(),
+		Model:      model(os),
+		KernelName: utsname.sys,
+		KernelVer:  utsname.release,
+		KernelArch: utsname.machine,
+		Mac:        getMacProductInfo(),
 	}
-	printAllInfo(osinfo)
 	return osinfo
-}
-
-func printAllInfo(info OsInfo) {
-	fmt.Println(info.Os)
-	fmt.Println(info.Distro)
-	fmt.Println(info.Model)
-	fmt.Println(info.KernelName)
-	fmt.Println(info.KernelVer)
-	fmt.Println(info.KernelMachine)
-	fmt.Println(info.mac.name)
-	fmt.Println(info.mac.version)
-	fmt.Println(info.mac.buildVer)
 }
 
 func utsToString(f [65]int8) string {
