@@ -34,7 +34,7 @@ func printAllInfo(info osinfo.OsInfo) {
 	fmt.Println("Kenel name          :" + info.KernelName)
 	fmt.Println("Kernel version      :" + info.KernelVer)
 	fmt.Println("Kernel architecture :" + info.KernelArch)
-	//fmt.Println(info.Mac.name)
-	//fmt.Println(info.Mac.version)
-	//fmt.Println(info.Mac.buildVer)
+	fmt.Println("Mac name            :" + info.Mac.Name)
+	fmt.Println("Mac version         :" + info.Mac.Version)
+	fmt.Println("Mac build version   :" + info.Mac.BuildVer)
 }
