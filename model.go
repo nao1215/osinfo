@@ -31,8 +31,56 @@ func model(os string, kernelArch string) string {
 		model = getMacModelName()
 	case "iPhone OS":
 		model = getiPhoneModelName(kernelArch)
+	case "BSD", "MINIX":
+		model = getBsdOrMinixModelName()
+	case "Windows":
+		model = getWindowsModelName()
+	case "Solaris":
+		model = getSolarisModelName()
+	case "AIX":
+		model = getAixModelName()
+	case "FreeMiNT":
+		model = getFreeMintModelName()
 	}
+
+	model = removeDummyOEMinfoIfNeeded(model)
 	model = strings.ReplaceAll(model, "\n", "")
+	model = appendVirtualMachineInfoIfNeeded(model)
+
+	return model
+}
+
+func removeDummyOEMinfoIfNeeded(model string) string {
+	list := []string{
+		"To be filled by O.E.M.",
+		"To Be Filled*",
+		"OEM*",
+		"Not Applicable",
+		"System Product Name",
+		"System Version",
+		"Undefined",
+		"Default string",
+		"Not Specified",
+		"Type1ProductConfigId",
+		"INVALID",
+		"All Series",
+		"�"}
+
+	for _, v := range list {
+		model = removeStringByRegexp(model, v)
+	}
+	return model
+}
+
+func appendVirtualMachineInfoIfNeeded(model string) string {
+	match, _ := regexp.MatchString("Standard PC*", model)
+	if match {
+		return "KVM/QEMU (" + model + ")"
+	}
+	match, _ = regexp.MatchString("OpenBSD*", model)
+	if match {
+		return "vmm (" + model + ")"
+	}
 	return model
 }
 
@@ -60,7 +108,7 @@ func getMacModelName() string {
 }
 
 func getiPhoneModelName(kernelArch string) string {
-	model := "Unknown"
+	model := "iPhone(or iPad, iPod touch)"
 	series := map[string]string{
 		"iPad1,1":            "iPad",
 		"iPad2,[1-4]":        "iPad 2",
@@ -132,6 +180,55 @@ func getiPhoneModelName(kernelArch string) string {
 		}
 	}
 	return model
+}
+
+func getBsdOrMinixModelName() string {
+	out, err := exec.Command("sysctl", "-n", "hw.vendor", "hw.product").Output()
+	if err != nil {
+		return "BSD(or Minix)"
+	}
+	return string(out)
+}
+
+func getWindowsModelName() string {
+	out, err := exec.Command("wmic", "computersystem", "get", "manufacturer,model").Output()
+	if err != nil {
+		return "Windows"
+	}
+	model := string(out)
+	model = strings.ReplaceAll(model, "Manufacturer", "")
+	return strings.ReplaceAll(model, "Model", "")
+}
+
+func getSolarisModelName() string {
+	out, err := exec.Command("prtconf", "-b").Output()
+	if err != nil {
+		return "Solaris"
+	}
+	model := ""
+	lines := strings.Split(string(out), "\n")
+	for _, v := range lines {
+		if strings.Contains(v, "banner-name") {
+			model = strings.Split(v, ":")[1]
+		}
+	}
+	return model
+}
+
+func getAixModelName() string {
+	out, err := exec.Command("/usr/bin/uname", "-M").Output()
+	if err != nil {
+		return "AIX"
+	}
+	return string(out)
+}
+
+func getFreeMintModelName() string {
+	out, err := exec.Command("sysctl", "-n", "hw.model").Output()
+	if err != nil {
+		return "FreeMiNT"
+	}
+	return removeStringByRegexp(string(out), ` (_MCH *)`)
 }
 
 func androidModelName() string {

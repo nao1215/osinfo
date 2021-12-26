@@ -20,6 +20,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"regexp"
 )
 
 func isFile(path string) bool {
@@ -51,4 +52,9 @@ func readFile(filePath string) string {
 func existCmd(cmd string) bool {
 	_, err := exec.LookPath(cmd)
 	return err == nil
+}
+
+func removeStringByRegexp(str string, pattern string) string {
+	rep := regexp.MustCompile(pattern)
+	return rep.ReplaceAllString(str, "")
 }
