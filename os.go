@@ -23,7 +23,7 @@ func operatingSystem(kernelName string) string {
 	switch kernelName {
 	case "Darwin":
 		mac := getMacProductInfo()
-		os = mac.name
+		os = mac.Name
 	case "SunOS":
 		os = "Solaris"
 	case "Haiku":

@@ -126,16 +126,16 @@ func getDistroNameForMac(mac macProductInfo) string {
 		"12":    "macOS Monterey"}
 
 	for k, v := range codes {
-		if strings.Contains(mac.version, k) {
+		if strings.Contains(mac.Version, k) {
 			distro = v
 			break
 		}
 	}
-	return distro + " " + mac.version + " " + mac.buildVer
+	return distro + " " + mac.Version + " " + mac.BuildVer
 }
 
 func getiPhoneDistroName(mac macProductInfo) string {
-	return "iOS " + mac.version
+	return "iOS " + mac.Version
 }
 
 func getWindowsDistroName() string {
