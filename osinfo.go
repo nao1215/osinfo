@@ -52,7 +52,7 @@ func Get() OsInfo {
 			utsname.sys,
 			utsname.release,
 			getMacProductInfo()),
-		Model:      model(os),
+		Model:      model(os, utsname.machine),
 		KernelName: utsname.sys,
 		KernelVer:  utsname.release,
 		KernelArch: utsname.machine,
