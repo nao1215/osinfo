@@ -26,8 +26,9 @@ func model(os string) string {
 	switch os {
 	case "Linux":
 		model = getLinuxModelName()
+	case "Mac OS X", "macOS":
+		model = getMacModel()
 	}
-
 	model = strings.ReplaceAll(model, "\n", "")
 	return model
 }
@@ -48,6 +49,13 @@ func getLinuxModelName() string {
 	return model
 }
 
+func getMacModel() string {
+	if isHackintosh() {
+		return hackintoshModelName()
+	}
+	return macModelName()
+}
+
 func androidModelName() string {
 	modelName := ""
 	brand, brandErr := exec.Command("getprop", "ro.product.brand").Output()
@@ -61,6 +69,22 @@ func androidModelName() string {
 		modelName = string(brand) + " " + string(model)
 	}
 	return modelName
+}
+
+func hackintoshModelName() string {
+	out, err := exec.Command("sysctl", "-n", "hw.model").Output()
+	if err != nil {
+		return "Hackintosh"
+	}
+	return "Hackintosh (SMBIOS: " + string(out)
+}
+
+func macModelName() string {
+	out, err := exec.Command("sysctl", "-n", "hw.model").Output()
+	if err != nil {
+		return "Macintosh"
+	}
+	return string(out)
 }
 
 func hasBoardInfoFile() bool {
@@ -97,4 +121,12 @@ func firmwareInfo() string {
 
 func sysinfoModelFile() string {
 	return readFile("/tmp/sysinfo/model")
+}
+
+func isHackintosh() bool {
+	out, err := exec.Command("kextstat").Output()
+	if err != nil {
+		return false
+	}
+	return strings.Contains(string(out), "FakeSMC") || strings.Contains(string(out), "VirtualSMC")
 }
