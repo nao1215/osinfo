@@ -16,7 +16,10 @@
 // limitations under the License.
 package osinfo
 
-import "os/exec"
+import (
+	"os/exec"
+	"strings"
+)
 
 func model(os string) string {
 	model := ""
@@ -24,6 +27,8 @@ func model(os string) string {
 	case "Linux":
 		model = getLinuxModelName()
 	}
+
+	model = strings.ReplaceAll(model, "\n", "")
 	return model
 }
 

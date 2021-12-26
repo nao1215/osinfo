@@ -38,7 +38,7 @@ func operatingSystem(kernelName string) string {
 		if isIRIX(kernelName) {
 			os = "IRIX"
 		} else if isLinux(kernelName) {
-			os = " Linux"
+			os = "Linux"
 		} else if isBSD(kernelName) {
 			os = "BSD"
 		} else if isWindows(kernelName) {

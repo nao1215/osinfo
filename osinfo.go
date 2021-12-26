@@ -62,9 +62,20 @@ func Get() OsInfo {
 		KernelMachine: utsname.machine,
 		mac:           getMacProductInfo(),
 	}
-
-	fmt.Println(osinfo)
+	printAllInfo(osinfo)
 	return osinfo
+}
+
+func printAllInfo(info OsInfo) {
+	fmt.Println(info.Os)
+	fmt.Println(info.Distro)
+	fmt.Println(info.Model)
+	fmt.Println(info.KernelName)
+	fmt.Println(info.KernelVer)
+	fmt.Println(info.KernelMachine)
+	fmt.Println(info.mac.name)
+	fmt.Println(info.mac.version)
+	fmt.Println(info.mac.buildVer)
 }
 
 func utsToString(f [65]int8) string {

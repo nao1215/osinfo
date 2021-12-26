@@ -53,6 +53,7 @@ func distribution(os string, kernelName string, kernelVer string, mac macProduct
 
 func getDistroNameForBsdLinuxMinix(kernelName string, kernelVer string) string {
 	distro := ""
+
 	if isBedrock() {
 		distro = bedrock()
 	} else if isRedstar() {
@@ -101,6 +102,7 @@ func getDistroNameForBsdLinuxMinix(kernelName string, kernelVer string) string {
 	if isUbuntuFlavor(distro) {
 		distro = ubuntuFlavor(distro)
 	}
+
 	return distro
 }
 
@@ -179,6 +181,7 @@ func getFreeMintDistroName() string {
 func formatDistroStr(distro string) string {
 	distro = strings.ReplaceAll(distro, "'", "")
 	distro = strings.ReplaceAll(distro, "\"", "")
+	distro = strings.ReplaceAll(distro, "\n", "")
 	return strings.ReplaceAll(distro, "NAME=", "")
 }
 
