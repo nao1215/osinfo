@@ -26,9 +26,9 @@ type utsname struct {
 }
 
 type macProductInfo struct {
-	name     string
-	version  string
-	buildVer string
+	Name     string
+	Version  string
+	BuildVer string
 }
 
 type OsInfo struct {
