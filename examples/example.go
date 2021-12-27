@@ -28,14 +28,15 @@ func main() {
 }
 
 func printAllInfo(info osinfo.OsInfo) {
-	fmt.Println("OS                  :" + info.Os)
-	fmt.Println("Distribution        :" + info.Distro)
-	fmt.Println("Model(Host)         :" + info.Model)
-	fmt.Println("Kenel name          :" + info.Kernel.Name)
-	fmt.Println("Kernel version      :" + info.Kernel.Ver)
-	fmt.Println("Kernel architecture :" + info.Kernel.Arch)
-	fmt.Println("Uptime              :" + info.Uptime)
-	fmt.Println("Mac name            :" + info.Mac.Name)
-	fmt.Println("Mac version         :" + info.Mac.Ver)
-	fmt.Println("Mac build version   :" + info.Mac.BuildVer)
+	fmt.Println("OS                  : " + info.Os)
+	fmt.Println("Distribution        : " + info.Distro)
+	fmt.Println("Model(Host)         : " + info.Model)
+	fmt.Println("Kenel name          : " + info.Kernel.Name)
+	fmt.Println("Kernel version      : " + info.Kernel.Ver)
+	fmt.Println("Kernel architecture : " + info.Kernel.Arch)
+	fmt.Println("Uptime              : " + info.Uptime)
+	fmt.Println("Shell               : " + info.Shell)
+	fmt.Println("Mac name            : " + info.Mac.Name)
+	fmt.Println("Mac version         : " + info.Mac.Ver)
+	fmt.Println("Mac build version   : " + info.Mac.BuildVer)
 }

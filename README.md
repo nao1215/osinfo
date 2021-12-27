@@ -15,30 +15,32 @@ func main() {
 }
 
 func printAllInfo(info osinfo.OsInfo) {
-	fmt.Println("OS                  :" + info.Os)
-	fmt.Println("Distribution        :" + info.Distro)
-	fmt.Println("Model(Host)         :" + info.Model)
-	fmt.Println("Kenel name          :" + info.Kernel.Name)
-	fmt.Println("Kernel version      :" + info.Kernel.Ver)
-	fmt.Println("Kernel architecture :" + info.Kernel.Arch)
-	fmt.Println("Uptime              :" + info.Uptime)
-	fmt.Println("Mac name            :" + info.Mac.Name)
-	fmt.Println("Mac version         :" + info.Mac.Ver)
-	fmt.Println("Mac build version   :" + info.Mac.BuildVer)
+	fmt.Println("OS                  : " + info.Os)
+	fmt.Println("Distribution        : " + info.Distro)
+	fmt.Println("Model(Host)         : " + info.Model)
+	fmt.Println("Kenel name          : " + info.Kernel.Name)
+	fmt.Println("Kernel version      : " + info.Kernel.Ver)
+	fmt.Println("Kernel architecture : " + info.Kernel.Arch)
+	fmt.Println("Uptime              : " + info.Uptime)
+	fmt.Println("Shell               : " + info.Shell)
+	fmt.Println("Mac name            : " + info.Mac.Name)
+	fmt.Println("Mac version         : " + info.Mac.Ver)
+	fmt.Println("Mac build version   : " + info.Mac.BuildVer)
 }
 ```
 ## Result
 ```
-OS                  :Linux
-Distribution        :Ubuntu Budgie 21.10
-Model(Host)         :Gigabyte Technology Co., Ltd. B450 I AORUS PRO WIFI-CF
-Kenel name          :Linux
-Kernel version      :5.13.0-22-generic
-Kernel architecture :x86_64
-Uptime              :2 days, 7 hours, 14 minutes
-Mac name            :This is not mac
-Mac version         :No version information
-Mac build version   :No build information
+OS                  : Linux
+Distribution        : Ubuntu Budgie 21.10
+Model(Host)         : Gigabyte Technology Co., Ltd. B450 I AORUS PRO WIFI-CF
+Kenel name          : Linux
+Kernel version      : 5.13.0-22-generic
+Kernel architecture : x86_64
+Uptime              : 2 days, 9 hours, 54 minutes
+Shell               : bash 5.1.8
+Mac name            : This is not mac
+Mac version         : No version information
+Mac build version   : No build information
 ```
 
 # Why did I create the osinfo library
