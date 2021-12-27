@@ -38,7 +38,7 @@ func getUptime(os string) string {
 	case "Haiku":
 		sec = uptimeSecForHaiku()
 	}
-	return secToUptime(sec)
+	return secToUptime(strings.ReplaceAll(sec, "\n", ""))
 }
 
 func secToUptime(sec string) string {
