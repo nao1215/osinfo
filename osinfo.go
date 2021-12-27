@@ -27,18 +27,23 @@ type utsname struct {
 
 type macProductInfo struct {
 	Name     string
-	Version  string
+	Ver      string
 	BuildVer string
 }
 
+type Kernel struct {
+	Name string
+	Ver  string
+	Arch string
+}
+
 type OsInfo struct {
-	Os         string
-	Distro     string
-	Model      string
-	KernelName string
-	KernelVer  string
-	KernelArch string
-	Mac        macProductInfo
+	Os     string
+	Distro string
+	Model  string
+	Kernel Kernel
+	Uptime string
+	Mac    macProductInfo
 }
 
 func Get() OsInfo {
@@ -52,11 +57,14 @@ func Get() OsInfo {
 			utsname.sys,
 			utsname.release,
 			getMacProductInfo()),
-		Model:      model(os, utsname.machine),
-		KernelName: utsname.sys,
-		KernelVer:  utsname.release,
-		KernelArch: utsname.machine,
-		Mac:        getMacProductInfo(),
+		Model: model(os, utsname.machine),
+		Kernel: Kernel{
+			Name: utsname.sys,
+			Ver:  utsname.release,
+			Arch: utsname.machine,
+		},
+		Uptime: getUptime(os),
+		Mac:    getMacProductInfo(),
 	}
 	return osinfo
 }

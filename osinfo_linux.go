@@ -43,6 +43,6 @@ func uts() utsname {
 func getMacProductInfo() macProductInfo {
 	return macProductInfo{
 		Name:     "This is not mac",
-		Version:  "No version information",
+		Ver:      "No version information",
 		BuildVer: "No build information"}
 }

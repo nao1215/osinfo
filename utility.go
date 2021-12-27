@@ -23,6 +23,17 @@ import (
 	"regexp"
 )
 
+const (
+	// Unknown : Don't use this bits
+	Unknown os.FileMode = 1 << (9 - iota)
+	// Readable : readable bits
+	Readable
+	// Writable : writable bits
+	Writable
+	// Executable : executable bits
+	Executable
+)
+
 func isFile(path string) bool {
 	stat, err := os.Stat(path)
 	return (err == nil) && (!stat.IsDir())
@@ -31,6 +42,11 @@ func isFile(path string) bool {
 func isDir(path string) bool {
 	stat, err := os.Stat(path)
 	return (err == nil) && (stat.IsDir())
+}
+
+func IsReadable(path string) bool {
+	stat, err := os.Stat(path)
+	return (err == nil) && ((stat.Mode() & Readable) != 0)
 }
 
 func hasEnvVar(environmentVar string) bool {
