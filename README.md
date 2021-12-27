@@ -35,7 +35,7 @@ Model(Host)         :Gigabyte Technology Co., Ltd. B450 I AORUS PRO WIFI-CF
 Kenel name          :Linux
 Kernel version      :5.13.0-22-generic
 Kernel architecture :x86_64
-Uptime              :2 days, 7 hours, 14 hours
+Uptime              :2 days, 7 hours, 14 minutes
 Mac name            :This is not mac
 Mac version         :No version information
 Mac build version   :No build information

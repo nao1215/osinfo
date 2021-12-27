@@ -77,12 +77,12 @@ func secToUptime(sec string) string {
 		if !emptyStr(uptime) {
 			uptime = uptime + ","
 		}
-		uptime = uptime + " " + strconv.Itoa(m) + " hour"
+		uptime = uptime + " " + strconv.Itoa(m) + " minute"
 	} else {
 		if !emptyStr(uptime) {
 			uptime = uptime + ","
 		}
-		uptime = uptime + " " + strconv.Itoa(m) + " hours"
+		uptime = uptime + " " + strconv.Itoa(m) + " minutes"
 	}
 
 	return uptime
