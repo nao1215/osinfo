@@ -18,11 +18,12 @@ func printAllInfo(info osinfo.OsInfo) {
 	fmt.Println("OS                  :" + info.Os)
 	fmt.Println("Distribution        :" + info.Distro)
 	fmt.Println("Model(Host)         :" + info.Model)
-	fmt.Println("Kenel name          :" + info.KernelName)
-	fmt.Println("Kernel version      :" + info.KernelVer)
-	fmt.Println("Kernel architecture :" + info.KernelArch)
+	fmt.Println("Kenel name          :" + info.Kernel.Name)
+	fmt.Println("Kernel version      :" + info.Kernel.Ver)
+	fmt.Println("Kernel architecture :" + info.Kernel.Arch)
+	fmt.Println("Uptime              :" + info.Uptime)
 	fmt.Println("Mac name            :" + info.Mac.Name)
-	fmt.Println("Mac version         :" + info.Mac.Version)
+	fmt.Println("Mac version         :" + info.Mac.Ver)
 	fmt.Println("Mac build version   :" + info.Mac.BuildVer)
 }
 ```
@@ -34,6 +35,7 @@ Model(Host)         :Gigabyte Technology Co., Ltd. B450 I AORUS PRO WIFI-CF
 Kenel name          :Linux
 Kernel version      :5.13.0-22-generic
 Kernel architecture :x86_64
+Uptime              :2 days, 7 hours, 14 hours
 Mac name            :This is not mac
 Mac version         :No version information
 Mac build version   :No build information
