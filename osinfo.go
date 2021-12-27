@@ -43,6 +43,7 @@ type OsInfo struct {
 	Model  string
 	Kernel Kernel
 	Uptime string
+	Shell  string
 	Mac    macProductInfo
 }
 
@@ -64,6 +65,7 @@ func Get() OsInfo {
 			Arch: utsname.machine,
 		},
 		Uptime: getUptime(os),
+		Shell:  getShell(),
 		Mac:    getMacProductInfo(),
 	}
 	return osinfo
